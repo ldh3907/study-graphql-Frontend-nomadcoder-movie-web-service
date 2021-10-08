@@ -1,7 +1,8 @@
-import ApolloClient from "apollo-boost";
+import { InMemoryCache, ApolloClient } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "https://movieql2.vercel.app/",
+  uri: "http://localhost:4000",
+  cache: new InMemoryCache(),
 });
 
 export default client;
