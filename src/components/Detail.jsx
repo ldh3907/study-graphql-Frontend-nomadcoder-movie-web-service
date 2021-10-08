@@ -3,7 +3,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
 const GET_MOVIE = gql`
-  query getMovie($id: Int) {
+  query getMovie($id: Int!) {
     movie(id: $id) {
       id
       title
@@ -13,7 +13,7 @@ const GET_MOVIE = gql`
   }
 `;
 
-export default () => {
+const Detail = () => {
   const { id } = useParams();
   const { loading, error, data } = useQuery(GET_MOVIE, {
     variables: { id: +id },
@@ -21,3 +21,5 @@ export default () => {
   console.log(loading, error, data);
   return "Detail";
 };
+
+export default Detail;

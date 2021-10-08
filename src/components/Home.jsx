@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { gql } from "apollo-boost";
 import styled from "styled-components";
+import Movie from "./Movie";
 
 const GET_MOVIES = gql`
   {
@@ -50,8 +51,16 @@ const SubTitle = styled.div`
   color: white;
 `;
 
+const Loading = styled.div`
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 10px;
+  font-weight: 300;
+`;
+
 export default () => {
-  const { loading, error, data } = useQuery(GET_MOVIES);
+  const { loading, data } = useQuery(GET_MOVIES);
   return (
     <Contalner>
       <Header>
@@ -60,9 +69,10 @@ export default () => {
           <SubTitle>made in DongHyun</SubTitle>
         </TitleWrap>
       </Header>
+      {loading && <Loading>Loading...</Loading>}
       {!loading &&
         data.movies &&
-        data.movies.map((movie, index) => <div key={index}>{movie.id}</div>)}
+        data.movies.map((movie, index) => <Movie key={movie.id} {...movie} />)}
     </Contalner>
   );
 };
