@@ -59,8 +59,21 @@ const Loading = styled.div`
   font-weight: 300;
 `;
 
-export default () => {
+const MoviesWrap = styled.div`
+  width: 1374px;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px auto;
+  margin-top: -20px;
+  row-gap: 30px;
+  column-gap: 30px;
+  margin-bottom: 30px;
+`;
+
+const Home = () => {
   const { loading, data } = useQuery(GET_MOVIES);
+
   return (
     <Contalner>
       <Header>
@@ -70,9 +83,17 @@ export default () => {
         </TitleWrap>
       </Header>
       {loading && <Loading>Loading...</Loading>}
-      {!loading &&
-        data.movies &&
-        data.movies.map((movie, index) => <Movie key={movie.id} {...movie} />)}
+      <MoviesWrap>
+        {!loading &&
+          data.movies &&
+          data.movies.map((movie, index) => {
+            return (
+              <Movie key={index} id={movie.id} bg={movie.medium_cover_image} />
+            );
+          })}
+      </MoviesWrap>
     </Contalner>
   );
 };
+
+export default Home;
